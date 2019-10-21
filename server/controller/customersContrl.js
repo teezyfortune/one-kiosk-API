@@ -28,15 +28,19 @@ static createCustomer(req, res){
             if(error){
                 res.send(err)
             }else{
+                const {id} = newUser;
+                jwt.sign({id}, process.env.SECRET_KEY, token,(token, error) => {
             res.status(201).send({
                 status:201,
                 user:{
+                token: token,
                 title:newUser.title,
                 name: newUser.email,
                 email: newUser.email,
                 },
             })
-        }
-        })    
+         })
+         }
+     })    
     }
 }
